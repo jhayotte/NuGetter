@@ -1,13 +1,13 @@
 ﻿<GetApiKeyData>
   <!-- Should Succeed -->
   <Test>
-    <ApiKeyOrFile>ApiKeyDataFile.txt</ApiKeyOrFile>
+    <ApiKeyOrFile>file:ApiKeyDataFile.txt</ApiKeyOrFile>
     <PassFullPath>true</PassFullPath>
     <ApiKeyValue>E7C9B319-3FE8-47E9-A187-BE8725E5A60A</ApiKeyValue>
     <ExpectedResult>true</ExpectedResult>
   </Test>
   <Test>
-    <ApiKeyOrFile>ApiKeyDataFile.txt</ApiKeyOrFile>
+    <ApiKeyOrFile>file:ApiKeyDataFile.txt</ApiKeyOrFile>
     <PassFullPath>false</PassFullPath>
     <ApiKeyValue>E7C9B319-3FE8-47E9-A187-BE8725E5A60A</ApiKeyValue>
     <ExpectedResult>true</ExpectedResult>
@@ -18,26 +18,14 @@
     <ApiKeyValue>E7C9B319-3FE8-47E9-A187-BE8725E5A60A</ApiKeyValue>
     <ExpectedResult>true</ExpectedResult>
   </Test>
-  <Test>
+  <!--<Test>
     <ApiKeyOrFile>{E7C9B319-3FE8-47E9-A187-BE8725E5A60A}</ApiKeyOrFile>
     <PassFullPath>true</PassFullPath>
     <ApiKeyValue>E7C9B319-3FE8-47E9-A187-BE8725E5A60A</ApiKeyValue>
     <ExpectedResult>true</ExpectedResult>
-  </Test>
+  </Test>-->
 
-  <!-- Should Fail -->
-  <Test>
-    <ApiKeyOrFile>ApiKeyDataFileNoValidKey.txt</ApiKeyOrFile>
-    <PassFullPath>true</PassFullPath>
-    <ApiKeyValue></ApiKeyValue>
-    <ExpectedResult>false</ExpectedResult>
-  </Test>
-  <Test>
-    <ApiKeyOrFile>ApiKeyDataFileNoValidKey.txt</ApiKeyOrFile>
-    <PassFullPath>false</PassFullPath>
-    <ApiKeyValue></ApiKeyValue>
-    <ExpectedResult>false</ExpectedResult>
-  </Test>
+  <!-- Should Fail -->  
   <Test>
     <ApiKeyOrFile></ApiKeyOrFile>
     <PassFullPath>true</PassFullPath>

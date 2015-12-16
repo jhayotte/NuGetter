@@ -81,7 +81,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="TestData\ApiKeyDataFile.txt" />
-    <None Include="TestData\ApiKeyDataFileNoValidKey.txt" />
     <None Include="TestData\VersionPatternsWithBuildNumberPrefix.csv" />
     <None Include="TestData\SemanticVersionPatterns.csv" />
     <None Include="TestData\TestLibNoNamespace.nuspec" />

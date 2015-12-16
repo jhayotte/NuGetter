@@ -59,7 +59,7 @@ namespace TfsBuild.NuGetter.Activities
 
             // Write to the log
             context.WriteBuildMessage(resultMessage, BuildMessageImportance.High);
-            
+
             // Return the value back to the workflow
             context.SetValue(ApiKeyValue, apiKey);
         }
@@ -72,46 +72,30 @@ namespace TfsBuild.NuGetter.Activities
             if (string.IsNullOrWhiteSpace(apiKeyOrFile))
             {
                 resultMessage = string.Format("No API key or file was provided.");
+                return apiKey;
+            }
+            if (apiKeyOrFile.Contains("file:"))
+            {
+                string fileName = apiKeyOrFile.Substring(apiKeyOrFile.LastIndexOf(':') + 1, apiKeyOrFile.Length - apiKeyOrFile.LastIndexOf(':') - 1);
+                // full path or do i have to create one?
+                var apiKeyFilePath = Path.IsPathRooted(fileName) ? fileName : Path.Combine(sourcesDirectory, fileName);
+                var apiFileData = File.ReadAllText(apiKeyFilePath);
+                apiFileData = apiFileData.Replace("\r\n", string.Empty);
+                if (string.IsNullOrWhiteSpace(apiFileData))
+                {
+                    resultMessage = string.Format("No API key in file was provided.");
+                    return apiKey;
+                }
+                else
+                {
+                    apiKey = apiFileData;                    
+                }
             }
             else
             {
-                var regex = new Regex(@"[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}");
-
-                var match = regex.Match(apiKeyOrFile);
-
-                // Was the value passed in actually an API key)
-                if (match.Success)
-                {
-                    // Write to the log
-                    resultMessage = string.Format("API key was provided in the build definition.");
-
-                    apiKey = match.Value;
-                }
-                else // 
-                {
-                    // full path or do i have to create one?
-                    var apiKeyFilePath = Path.IsPathRooted(apiKeyOrFile) ? apiKeyOrFile : Path.Combine(sourcesDirectory, apiKeyOrFile);
-
-                    var apiFileData = File.ReadAllText(apiKeyFilePath);
-
-                    match = regex.Match(apiFileData);
-
-                    if (match.Success)
-                    {
-                        // Write to the log
-                        resultMessage = string.Format("Found the API key in the file: {0}", apiKeyOrFile);
-
-                        apiKey = match.Value;
-                    }
-                    else
-                    {
-                        // Write to the log
-                        resultMessage = string.Format("Did not find an API key in the file: {0} - was looking in this path: {1}",
-                            apiKeyOrFile, apiKeyFilePath);
-                    }
-                }
+                apiKey = Path.GetFileName(apiKeyOrFile);
             }
-
+            resultMessage = string.Format("API key found.");
             return apiKey;
         }
     }

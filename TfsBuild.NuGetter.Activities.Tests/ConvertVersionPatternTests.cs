@@ -202,20 +202,20 @@ namespace TfsBuild.NuGetter.Activities.Tests
         }
 
 
-        [TestMethod]
-        [DataSource("Microsoft.VisualStudio.TestTools.DataSource.CSV", "|DataDirectory|\\SemanticVersionPatterns.csv", "SemanticVersionPatterns#csv", DataAccessMethod.Sequential)]
-        [DeploymentItem("TfsBuild.NuGetter.Activities.Tests\\TestData\\SemanticVersionPatterns.csv")]
-        public void ConvertVersionPatternTests_WhenTestingGoodPatternsShouldValidateProperly()
-        {
-            var patternToTest = TestContext.DataRow["VersionPattern"].ToString();
-            var expectedResult = TestContext.DataRow["ExpectedResult"].ToString();
+        //[TestMethod]
+        //[DataSource("Microsoft.VisualStudio.TestTools.DataSource.CSV", "|DataDirectory|\\SemanticVersionPatterns.csv", "SemanticVersionPatterns#csv", DataAccessMethod.Sequential)]
+        //[DeploymentItem("TfsBuild.NuGetter.Activities.Tests\\TestData\\SemanticVersionPatterns.csv")]
+        //public void ConvertVersionPatternTests_WhenTestingGoodPatternsShouldValidateProperly()
+        //{
+        //    var patternToTest = TestContext.DataRow["VersionPattern"].ToString();
+        //    var expectedResult = TestContext.DataRow["ExpectedResult"].ToString();
 
-            var convertVersionPattern = new ConvertVersionPattern();
+        //    var convertVersionPattern = new ConvertVersionPattern();
 
-            var versionPattern = convertVersionPattern.DoConvertVersion(patternToTest, "NuGet Update Test_20111221.4", 0);
+        //    var versionPattern = convertVersionPattern.DoConvertVersion(patternToTest, "NuGet Update Test_20111221.4", 0);
 
-            Assert.AreEqual(expectedResult, versionPattern);
-        }
+        //    Assert.AreEqual(expectedResult, versionPattern);
+        //}
 
         [DataSource("Microsoft.VisualStudio.TestTools.DataSource.CSV", "|DataDirectory|\\VersionPatternsWithBuildNumberPrefix.csv", "VersionPatternsWithBuildNumberPrefix#csv", DataAccessMethod.Sequential)]
         [DeploymentItem("TfsBuild.NuGetter.Activities.Tests\\TestData\\VersionPatternsWithBuildNumberPrefix.csv")]
